@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <!-- viewport — чтобы сайт красиво открывался на телефоне -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-дайджест для новичков</title>
+  <meta name="description" content="Карточки про нейросети, промпты, Claude Code и первые проекты — понятным языком.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- Фоновые цветные пятна (анимированные) -->
+  <div class="bg-blobs" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+
+  <!-- ШАПКА -->
+  <header class="header">
+    <div class="container header-inner">
+      <a class="logo" href="/">
+        <span class="logo-icon">🤖</span>
+        <span>AI<span class="logo-accent">Digest</span></span>
+      </a>
+      <nav class="nav">
+        <a href="#cards" class="nav-link">Карточки</a>
+        <a href="#subscribe" class="nav-link">Дайджест</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ГЛАВНЫЙ ЭКРАН -->
+  <section class="hero container">
+    <p class="hero-badge">✦ дайджест обновляется каждую неделю</p>
+    <h1 class="hero-title">
+      Нейросети — <span class="gradient-text">проще, чем кажется</span>
+    </h1>
+    <p class="hero-subtitle">
+      Короткие карточки про ИИ, промпты, Claude Code и первые проекты.
+      Без заумных терминов — только то, что реально пригодится.
+    </p>
+
+    <!-- Поиск -->
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+      </svg>
+      <input
+        id="search-input"
+        class="search-input"
+        type="text"
+        placeholder="Поиск: промпты, claude, ошибки…"
+        autocomplete="off">
+    </div>
+
+    <!-- Фильтр по тегам (кнопки-чипы создаст script.js) -->
+    <div id="tag-filter" class="tag-filter"></div>
+  </section>
+
+  <!-- КАРТОЧКИ -->
+  <main id="cards" class="container">
+    <!-- Счётчик найденных карточек -->
+    <p id="results-counter" class="results-counter"></p>
+
+    <div id="cards-grid" class="cards-grid">
+      {% for card in cards %}
+      <article
+        class="card"
+        style="--accent: {{ card.accent or '#8b5cf6' }}; --accent-soft: {{ card.accent_soft or '#a78bfa' }};"
+        data-title="{{ card.title|lower }}"
+        data-description="{{ card.description|lower }}"
+        data-tags="{{ card.tags|join(',')|lower }}">
+
+        <div class="card-emoji">{{ card.emoji }}</div>
+
+        <h2 class="card-title">{{ card.title }}</h2>
+        <p class="card-description">{{ card.description }}</p>
+
+        <div class="card-tags">
+          {% for tag in card.tags %}
+          <button class="tag" data-tag="{{ tag }}">{{ tag }}</button>
+          {% endfor %}
+        </div>
+
+        <a class="card-button" href="{{ card.link }}" target="_blank" rel="noopener">
+          Открыть материал
+          <span class="card-button-arrow">→</span>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+
+    <!-- Что показать, если ничего не нашлось -->
+    <div id="empty-state" class="empty-state hidden">
+      <div class="empty-emoji">🕵️</div>
+      <h3>Ничего не нашли</h3>
+      <p>Попробуйте другое слово или сбросьте фильтры.</p>
+      <button id="reset-button" class="card-button empty-reset">Сбросить всё</button>
+    </div>
+  </main>
+
+  <!-- ПОДПИСКА (CTA) -->
+  <section id="subscribe" class="container cta-section">
+    <div class="cta-card">
+      <h2>Хотите такой дайджест — себе?</h2>
+      <p>Этот сайт собран за вечер: Python + Flask + один файл с карточками.
+         Добавьте свои ссылки в <code>content.json</code> — и карточки появятся сами.</p>
+      <a class="card-button cta-button" href="https://flask.palletsprojects.com/" target="_blank" rel="noopener">
+        Попробовать Flask
+      </a>
+    </div>
+  </section>
+
+  <!-- ПОДВАЛ -->
+  <footer class="footer container">
+    <p>Сделано с 💜 на Flask · Карточки лежат в <code>content.json</code></p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

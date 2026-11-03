@@ -1,0 +1,13 @@
+# Python / Flask
+__pycache__/
+*.pyc
+.venv/
+venv/
+.flask_session/
+
+# Секреты и окружение
+.env
+
+# Системные файлы
+.DS_Store
+Thumbs.db
