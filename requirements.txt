@@ -1,2 +1,3 @@
 # Зависимости проекта. Установка: pip install -r requirements.txt
 flask>=3.0
+gunicorn>=21.2  # боевой веб-сервер для Render и других хостингов

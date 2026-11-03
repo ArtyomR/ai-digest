@@ -1,0 +1,13 @@
+# Описание сервиса для Render (https://render.com)
+# Render увидит этот файл и сам подставит настройки при создании сервиса.
+services:
+  - type: web
+    name: ai-digest
+    runtime: python
+    plan: free
+    # Устанавливаем зависимости
+    buildCommand: pip install -r requirements.txt
+    # Запускаем через gunicorn, а не python app.py
+    startCommand: gunicorn app:app
+    # Автоматически перезапускать сайт после git push
+    autoDeploy: true
