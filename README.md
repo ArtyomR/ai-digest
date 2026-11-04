@@ -3,6 +3,8 @@
 Сайт с карточками про нейросети, промпты, Claude Code и первые проекты.
 Сделан на Python + Flask.
 
+https://ai-digest-p7j2.onrender.com/
+
 ## Как запустить
 
 1. Установите Flask один раз:
